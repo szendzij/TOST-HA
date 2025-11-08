@@ -12,16 +12,24 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import (
+    ATTR_AMOUNT_DUE,
+    ATTR_DELIVERY_ADDRESS_TITLE,
     ATTR_DELIVERY_APPOINTMENT,
     ATTR_DELIVERY_WINDOW,
     ATTR_ETA_TO_DELIVERY_CENTER,
+    ATTR_FINANCING_INFO,
+    ATTR_FINANCING_TYPE,
     ATTR_FULL_DATA,
     ATTR_HISTORY,
     ATTR_MODEL,
+    ATTR_MONTHLY_PAYMENT,
+    ATTR_ODOMETER,
     ATTR_OPTIONS,
     ATTR_ORDER_ID,
+    ATTR_ROUTING_LOCATION,
     ATTR_STATUS,
     ATTR_TIMELINE,
+    ATTR_VEHICLE_STATUS,
     ATTR_VIN,
     DOMAIN,
 )
@@ -59,6 +67,36 @@ SENSOR_TYPES: dict[str, SensorEntityDescription] = {
         key="eta_to_delivery_center",
         name="ETA to Delivery Center",
         icon="mdi:map-marker-distance",
+    ),
+    "delivery_address_title": SensorEntityDescription(
+        key="delivery_address_title",
+        name="Delivery Address Title",
+        icon="mdi:map-marker",
+    ),
+    "routing_location_name": SensorEntityDescription(
+        key="routing_location_name",
+        name="Routing Location Name",
+        icon="mdi:store",
+    ),
+    "odometer": SensorEntityDescription(
+        key="odometer",
+        name="Odometer",
+        icon="mdi:counter",
+    ),
+    "financing_type": SensorEntityDescription(
+        key="financing_type",
+        name="Financing Type",
+        icon="mdi:currency-usd",
+    ),
+    "monthly_payment": SensorEntityDescription(
+        key="monthly_payment",
+        name="Monthly Payment",
+        icon="mdi:currency-usd",
+    ),
+    "amount_due": SensorEntityDescription(
+        key="amount_due",
+        name="Amount Due",
+        icon="mdi:currency-usd",
     ),
 }
 
@@ -126,7 +164,7 @@ class TeslaOrderStatusSensor(
         return None
 
     @property
-    def native_value(self) -> str | None:
+    def native_value(self) -> str | int | float | None:
         """Return the state of the sensor."""
         order_data = self.order_data
         if not order_data:
@@ -147,7 +185,59 @@ class TeslaOrderStatusSensor(
         elif self._sensor_key == "eta_to_delivery_center":
             delivery_info = order_data.get("delivery_info", {})
             return delivery_info.get("eta_to_delivery_center")
+        elif self._sensor_key == "delivery_address_title":
+            delivery_info = order_data.get("delivery_info", {})
+            return delivery_info.get("delivery_address_title")
+        elif self._sensor_key == "routing_location_name":
+            delivery_info = order_data.get("delivery_info", {})
+            routing_location = delivery_info.get("routing_location", {})
+            return routing_location.get("name")
+        elif self._sensor_key == "odometer":
+            vehicle_status = order_data.get("vehicle_status")
+            if vehicle_status:
+                return vehicle_status.get("odometer")
+            return None
+        elif self._sensor_key == "financing_type":
+            financing_info = order_data.get("financing_info")
+            if financing_info:
+                return financing_info.get("type")
+            return None
+        elif self._sensor_key == "monthly_payment":
+            financing_info = order_data.get("financing_info")
+            if financing_info:
+                monthly_payment = financing_info.get("monthly_payment")
+                if monthly_payment is not None:
+                    try:
+                        return float(monthly_payment)
+                    except (ValueError, TypeError):
+                        return None
+            return None
+        elif self._sensor_key == "amount_due":
+            financing_info = order_data.get("financing_info")
+            if financing_info:
+                amount_due = financing_info.get("amount_due")
+                if amount_due is not None:
+                    try:
+                        return float(amount_due)
+                    except (ValueError, TypeError):
+                        return None
+            return None
         
+        return None
+
+    @property
+    def native_unit_of_measurement(self) -> str | None:
+        """Return the unit of measurement of the sensor."""
+        if self._sensor_key == "odometer":
+            order_data = self.order_data
+            if order_data:
+                vehicle_status = order_data.get("vehicle_status")
+                if vehicle_status:
+                    return vehicle_status.get("odometer_type")
+        elif self._sensor_key in ("monthly_payment", "amount_due"):
+            # Try to determine currency from order data
+            # Default to EUR, but could be enhanced to detect from locale/region
+            return "EUR"
         return None
 
     @property
@@ -181,6 +271,25 @@ class TeslaOrderStatusSensor(
             attrs[ATTR_DELIVERY_APPOINTMENT] = delivery_info.get("delivery_appointment")
         if delivery_info.get("eta_to_delivery_center"):
             attrs[ATTR_ETA_TO_DELIVERY_CENTER] = delivery_info.get("eta_to_delivery_center")
+        if delivery_info.get("delivery_address_title"):
+            attrs[ATTR_DELIVERY_ADDRESS_TITLE] = delivery_info.get("delivery_address_title")
+        if delivery_info.get("routing_location"):
+            attrs[ATTR_ROUTING_LOCATION] = delivery_info.get("routing_location")
+        
+        # Add vehicle status
+        if order_data.get("vehicle_status"):
+            attrs[ATTR_VEHICLE_STATUS] = order_data.get("vehicle_status")
+        
+        # Add financing info
+        if order_data.get("financing_info"):
+            financing_info = order_data.get("financing_info")
+            attrs[ATTR_FINANCING_INFO] = financing_info
+            if financing_info.get("type"):
+                attrs[ATTR_FINANCING_TYPE] = financing_info.get("type")
+            if financing_info.get("monthly_payment") is not None:
+                attrs[ATTR_MONTHLY_PAYMENT] = financing_info.get("monthly_payment")
+            if financing_info.get("amount_due") is not None:
+                attrs[ATTR_AMOUNT_DUE] = financing_info.get("amount_due")
         
         # Add options
         if order_data.get("options"):
