@@ -111,7 +111,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 description_placeholders={
                     "auth_url": auth_url,
                 },
-                description="description",
                 errors=errors,
             )
         
@@ -128,7 +127,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 description_placeholders={
                     "auth_url": auth_url,
                 },
-                description="description",
                 errors=errors,
             )
         
@@ -149,7 +147,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     description_placeholders={
                         "auth_url": auth_url,
                     },
-                    description="description",
                     errors=errors,
                 )
             
@@ -169,7 +166,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     description_placeholders={
                         "auth_url": auth_url,
                     },
-                    description="description",
                     errors=errors,
                 )
             
@@ -199,7 +195,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             description_placeholders={
                 "auth_url": auth_url,
             },
-            description="description",
             errors=errors,
         )
 
