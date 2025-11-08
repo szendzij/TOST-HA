@@ -162,5 +162,12 @@
     "abort": {
       "already_configured": "Integrationen är redan konfigurerad"
     }
+  },
+
+  "services": {
+    "update": {
+      "name": "Uppdatera beställningar",
+      "description": "Utlös manuellt en uppdatering av Tesla-beställningsstatus"
+    }
   }
 }

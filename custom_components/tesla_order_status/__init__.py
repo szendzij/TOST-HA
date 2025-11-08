@@ -11,8 +11,16 @@ from homeassistant.core import HomeAssistant
 from .api import TeslaOrderStatusAPI
 from .const import DOMAIN
 from .coordinator import TeslaOrderStatusCoordinator
+from .services import async_setup_services, async_unload_services
 
 PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BINARY_SENSOR]
+
+
+async def async_setup(hass: HomeAssistant, config: dict) -> bool:
+    """Set up the Tesla Order Status integration."""
+    # Set up services
+    await async_setup_services(hass)
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -57,6 +65,10 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
+        
+        # Unload services if no more entries
+        if not hass.data.get(DOMAIN):
+            await async_unload_services(hass)
 
     return unload_ok
 

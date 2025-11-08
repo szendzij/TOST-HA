@@ -82,6 +82,35 @@ Each sensor includes additional attributes:
 - `history` - Change history
 - `full_data` - Complete order data (JSON)
 
+## Services
+
+The integration provides a service to manually trigger an update of Tesla order status:
+
+### `tesla_order_status.update`
+
+Manually trigger an update of Tesla order status without waiting for the automatic hourly update.
+
+**Usage in Developer Tools:**
+1. Go to **Developer Tools** → **Services**
+2. Select `tesla_order_status.update` from the service dropdown
+3. Click **Call Service**
+
+**Usage in YAML automation:**
+```yaml
+service: tesla_order_status.update
+```
+
+**Example automation with manual update:**
+```yaml
+automation:
+  - alias: "Manually Update Tesla Orders"
+    trigger:
+      - platform: time
+        at: "08:00:00"
+    action:
+      - service: tesla_order_status.update
+```
+
 ## Automations
 
 You can create automations based on order status changes:

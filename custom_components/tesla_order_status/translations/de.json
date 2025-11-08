@@ -161,11 +161,14 @@
     "abort": {
       "already_configured": "Integration ist bereits konfiguriert"
     }
+  },
+
+  "services": {
+    "update": {
+      "name": "Bestellungen aktualisieren",
+      "description": "Manuell eine Aktualisierung des Tesla-Bestellstatus auslösen"
+    }
   }
-
-
-
-
 
 
 

@@ -162,5 +162,12 @@
     "abort": {
       "already_configured": "Integracja jest już skonfigurowana"
     }
+  },
+
+  "services": {
+    "update": {
+      "name": "Aktualizuj zamówienia",
+      "description": "Ręcznie wywołaj aktualizację statusu zamówień Tesla"
+    }
   }
 }

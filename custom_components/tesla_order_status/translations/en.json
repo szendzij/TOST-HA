@@ -162,5 +162,12 @@
     "abort": {
       "already_configured": "Integration is already configured"
     }
+  },
+
+  "services": {
+    "update": {
+      "name": "Update orders",
+      "description": "Manually trigger an update of Tesla order status"
+    }
   }
 }
