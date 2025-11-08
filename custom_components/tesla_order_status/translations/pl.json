@@ -141,5 +141,26 @@
   "[ERROR] Could not connect to SMTP server. Please check host and port.": "[BŁĄD] Nie można połączyć się z serwerem SMTP. Sprawdź host i port.",
   "[ERROR] SMTP error occurred: {error}": "[BŁĄD] Wystąpił błąd SMTP: {error}",
   "Email notification sent successfully.": "Powiadomienie e-mail wysłane pomyślnie.",
-  "No active orders found.": "Nie znaleziono aktywnych zamówień."
+  "No active orders found.": "Nie znaleziono aktywnych zamówień.",
+
+  "config": {
+    "step": {
+      "auth": {
+        "title": "Autoryzacja Tesla",
+        "description": "Kliknij poniższy link, aby zalogować się do konta Tesla:\n\n[{auth_url}]({auth_url})\n\nPo zalogowaniu skopiuj pełny URL ze strony przekierowania i wklej go poniżej."
+      }
+    },
+    "error": {
+      "missing_url": "URL jest wymagany",
+      "invalid_url": "Nieprawidłowy URL",
+      "missing_verifier": "Błąd konfiguracji",
+      "invalid_tokens": "Nieprawidłowe tokeny",
+      "cannot_connect": "Nie można połączyć",
+      "invalid_auth": "Nieprawidłowa autoryzacja",
+      "unknown": "Nieznany błąd"
+    },
+    "abort": {
+      "already_configured": "Integracja jest już skonfigurowana"
+    }
+  }
 }

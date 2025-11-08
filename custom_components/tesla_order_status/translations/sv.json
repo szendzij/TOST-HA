@@ -141,5 +141,26 @@
   "[ERROR] Could not connect to SMTP server. Please check host and port.": "[FEL] Kunde inte ansluta till SMTP-server. Kontrollera värd och port.",
   "[ERROR] SMTP error occurred: {error}": "[FEL] SMTP-fel uppstod: {error}",
   "Email notification sent successfully.": "E-postmeddelande skickat.",
-  "No active orders found.": "Inga aktiva beställningar hittades."
+  "No active orders found.": "Inga aktiva beställningar hittades.",
+
+  "config": {
+    "step": {
+      "auth": {
+        "title": "Tesla-autentisering",
+        "description": "Klicka på länken nedan för att logga in på ditt Tesla-konto:\n\n[{auth_url}]({auth_url})\n\nEfter inloggning kopierar du den fullständiga URL:en från omdirigeringssidan och klistrar in den nedan."
+      }
+    },
+    "error": {
+      "missing_url": "URL krävs",
+      "invalid_url": "Ogiltig URL",
+      "missing_verifier": "Konfigurationsfel",
+      "invalid_tokens": "Ogiltiga token",
+      "cannot_connect": "Kan inte ansluta",
+      "invalid_auth": "Ogiltig autentisering",
+      "unknown": "Okänt fel"
+    },
+    "abort": {
+      "already_configured": "Integrationen är redan konfigurerad"
+    }
+  }
 }

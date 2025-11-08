@@ -111,6 +111,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 description_placeholders={
                     "auth_url": auth_url,
                 },
+                description="description",
                 errors=errors,
             )
         
@@ -118,11 +119,16 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         
         if not redirect_url:
             errors["base"] = "missing_url"
+            auth_url = self.hass.data.get(DOMAIN, {}).get("auth_url", "")
             return self.async_show_form(
                 step_id="auth",
                 data_schema=vol.Schema({
                     vol.Required("redirect_url"): str,
                 }),
+                description_placeholders={
+                    "auth_url": auth_url,
+                },
+                description="description",
                 errors=errors,
             )
         
@@ -134,11 +140,16 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             code_verifier = self.hass.data[DOMAIN].get("code_verifier")
             if not code_verifier:
                 errors["base"] = "missing_verifier"
+                auth_url = self.hass.data.get(DOMAIN, {}).get("auth_url", "")
                 return self.async_show_form(
                     step_id="auth",
                     data_schema=vol.Schema({
                         vol.Required("redirect_url"): str,
                     }),
+                    description_placeholders={
+                        "auth_url": auth_url,
+                    },
+                    description="description",
                     errors=errors,
                 )
             
@@ -149,11 +160,16 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # Validate tokens
             if not tokens.get("access_token"):
                 errors["base"] = "invalid_tokens"
+                auth_url = self.hass.data.get(DOMAIN, {}).get("auth_url", "")
                 return self.async_show_form(
                     step_id="auth",
                     data_schema=vol.Schema({
                         vol.Required("redirect_url"): str,
                     }),
+                    description_placeholders={
+                        "auth_url": auth_url,
+                    },
+                    description="description",
                     errors=errors,
                 )
             
@@ -174,11 +190,16 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             _LOGGER.exception("Unexpected exception: %s", err)
             errors["base"] = "unknown"
         
+        auth_url = self.hass.data.get(DOMAIN, {}).get("auth_url", "")
         return self.async_show_form(
             step_id="auth",
             data_schema=vol.Schema({
                 vol.Required("redirect_url"): str,
             }),
+            description_placeholders={
+                "auth_url": auth_url,
+            },
+            description="description",
             errors=errors,
         )
 

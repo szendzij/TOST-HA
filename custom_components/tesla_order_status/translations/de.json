@@ -140,11 +140,28 @@
   "[ERROR] Could not connect to SMTP server. Please check host and port.": "[FEHLER] Verbindung zum SMTP-Server fehlgeschlagen. Bitte überprüfen Sie Host und Port.",
   "[ERROR] SMTP error occurred: {error}": "[FEHLER] SMTP-Fehler aufgetreten: {error}",
   "Email notification sent successfully.": "E-Mail-Benachrichtigung erfolgreich gesendet.",
-  "No active orders found.": "Keine aktiven Bestellungen gefunden."
+  "No active orders found.": "Keine aktiven Bestellungen gefunden.",
 
-
-
-
+  "config": {
+    "step": {
+      "auth": {
+        "title": "Tesla-Autorisierung",
+        "description": "Klicken Sie auf den untenstehenden Link, um sich bei Ihrem Tesla-Konto anzumelden:\n\n[{auth_url}]({auth_url})\n\nNach der Anmeldung kopieren Sie die vollständige URL von der Weiterleitungsseite und fügen Sie sie unten ein."
+      }
+    },
+    "error": {
+      "missing_url": "URL ist erforderlich",
+      "invalid_url": "Ungültige URL",
+      "missing_verifier": "Konfigurationsfehler",
+      "invalid_tokens": "Ungültige Token",
+      "cannot_connect": "Verbindung nicht möglich",
+      "invalid_auth": "Ungültige Authentifizierung",
+      "unknown": "Unbekannter Fehler"
+    },
+    "abort": {
+      "already_configured": "Integration ist bereits konfiguriert"
+    }
+  }
 
 
 
