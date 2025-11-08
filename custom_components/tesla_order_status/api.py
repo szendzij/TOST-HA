@@ -8,18 +8,14 @@ from typing import Any
 
 from homeassistant.core import HomeAssistant
 
-# Import app utilities
-import sys
-APP_DIR = Path(__file__).resolve().parent.parent.parent / "app"
-sys.path.insert(0, str(APP_DIR.parent))
-
-from app.utils.auth import (
+# Import helpers utilities
+from .helpers.utils.auth import (
     is_token_valid,
     refresh_tokens,
     save_tokens_to_file,
     load_tokens_from_file,
 )
-from app.utils.orders_data import (
+from .helpers.utils.orders_data import (
     get_all_orders_data,
     save_orders_to_file,
     load_orders_from_file,

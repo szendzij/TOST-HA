@@ -1,0 +1,7 @@
+{
+  "name": "Tesla Order Status",
+  "content_in_root": false,
+  "domains": ["tesla_order_status"],
+  "homeassistant": "2023.1.0"
+}
+

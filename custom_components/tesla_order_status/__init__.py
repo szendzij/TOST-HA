@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
@@ -16,6 +18,11 @@ PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BINARY_SENSOR]
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Tesla Order Status from a config entry."""
     hass.data.setdefault(DOMAIN, {})
+    
+    # Initialize paths in helpers/config.py
+    from .helpers.config import init_paths
+    integration_dir = Path(__file__).resolve().parent
+    init_paths(Path(hass.config.config_dir), integration_dir)
     
     # Get tokens from config entry
     access_token = entry.data.get("access_token")

@@ -15,14 +15,7 @@ from homeassistant.exceptions import HomeAssistantError
 from .const import DOMAIN
 
 # Import auth utilities
-import sys
-from pathlib import Path
-
-# Add app directory to path for imports
-APP_DIR = Path(__file__).resolve().parent.parent.parent / "app"
-sys.path.insert(0, str(APP_DIR.parent))
-
-from app.utils.auth import (
+from .helpers.utils.auth import (
     generate_code_verifier_and_challenge,
     get_auth_url,
     extract_auth_code_from_url,

@@ -24,16 +24,20 @@ This is a Home Assistant custom integration for tracking Tesla order status. It 
 
 1. Open HACS in Home Assistant
 2. Go to "Integrations"
-3. Click the three dots menu and select "Custom repositories"
-4. Add this repository URL
-5. Search for "Tesla Order Status" and install it
-6. Restart Home Assistant
+3. Click the three dots menu (⋮) and select "Custom repositories"
+4. Add this repository URL: `https://github.com/chrisi51/tesla-order-status-ha`
+5. Select "Integration" as the category
+6. Click "Add"
+7. Search for "Tesla Order Status" and click "Install"
+8. Restart Home Assistant
 
 ### Manual Installation
 
-1. Copy the `custom_components/tesla_order_status` folder to your Home Assistant `custom_components` directory
-2. Copy the `app` folder to your Home Assistant config directory (alongside `custom_components`)
+1. Download or clone this repository
+2. Copy the `custom_components/tesla_order_status` folder to your Home Assistant `custom_components` directory
 3. Restart Home Assistant
+
+**Note:** All required files are now included in the `custom_components/tesla_order_status` directory, so no additional folders need to be copied.
 
 ## Configuration
 
@@ -65,6 +69,7 @@ After configuration, the integration will automatically create sensors for each 
 ### Sensor Attributes
 
 Each sensor includes additional attributes:
+
 - `order_id` - Order reference number
 - `model` - Vehicle model
 - `vin` - Vehicle Identification Number
@@ -87,7 +92,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.tesla_order_rn123456789_has_changes
-        to: 'on'
+        to: "on"
     action:
       - service: notify.mobile_app_your_phone
         data:
@@ -103,6 +108,7 @@ automation:
 ### Authentication Issues
 
 If you encounter authentication errors:
+
 1. Make sure you copied the complete URL from your browser
 2. The URL should start with `https://auth.tesla.com/void/callback?code=...`
 3. Try the authentication flow again
@@ -110,6 +116,7 @@ If you encounter authentication errors:
 ### No Sensors Created
 
 If no sensors are created:
+
 1. Check the logs for errors
 2. Make sure you have active Tesla orders
 3. Verify the integration is properly configured
@@ -117,15 +124,18 @@ If no sensors are created:
 ### Token Refresh Issues
 
 The integration automatically refreshes tokens when they expire. If you encounter token refresh errors:
+
 1. Remove the integration
 2. Re-add it with a fresh authentication
 
 ## Data Storage
 
 The integration stores data in:
-- `config/tesla_order_status/tokens.json` - Authentication tokens
-- `config/tesla_order_status/orders.json` - Cached order data
-- `config/tesla_order_status/history.json` - Change history
+
+- `config/tesla_order_status/private/tokens.json` - Authentication tokens
+- `config/tesla_order_status/private/orders.json` - Cached order data
+- `config/tesla_order_status/private/history.json` - Change history
+- `config/tesla_order_status/private/settings.json` - Integration settings
 
 ## Privacy
 
@@ -137,6 +147,7 @@ The integration stores data in:
 ## Support
 
 For issues and questions:
+
 - GitHub Issues: [https://github.com/chrisi51/tesla-order-status/issues](https://github.com/chrisi51/tesla-order-status/issues)
 - Original Project: [https://github.com/chrisi51/tesla-order-status](https://github.com/chrisi51/tesla-order-status)
 
