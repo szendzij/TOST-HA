@@ -1,0 +1,14 @@
+{
+  "domain": "tesla_order_status",
+  "name": "Tesla Order Status",
+  "version": "1.0.0",
+  "documentation": "https://github.com/chrisi51/tesla-order-status",
+  "issue_tracker": "https://github.com/chrisi51/tesla-order-status/issues",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": ["requests>=2.25.0"],
+  "config_flow": true,
+  "iot_class": "cloud_polling",
+  "integration_type": "hub"
+}
+

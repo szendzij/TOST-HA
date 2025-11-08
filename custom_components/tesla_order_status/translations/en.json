@@ -1,0 +1,57 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Tesla Order Status",
+        "description": "Connect to your Tesla account to track order status."
+      },
+      "auth": {
+        "title": "Authenticate with Tesla",
+        "description": "1. Open the authorization URL below in your browser\n2. Log in to your Tesla account\n3. After login, you will see a \"Page Not Found\" page - this is CORRECT!\n4. Copy the full URL from your browser's address bar\n5. Paste it in the field below",
+        "data": {
+          "redirect_url": "Redirect URL"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to Tesla API",
+      "invalid_auth": "Invalid authentication",
+      "invalid_url": "Invalid redirect URL. Please check the URL and try again.",
+      "missing_url": "Please provide the redirect URL",
+      "missing_verifier": "Authentication error. Please start over.",
+      "invalid_tokens": "Failed to obtain access tokens",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "Tesla Order Status is already configured"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "tesla_order_status_status": {
+        "name": "Order Status"
+      },
+      "tesla_order_status_vin": {
+        "name": "VIN"
+      },
+      "tesla_order_status_model": {
+        "name": "Model"
+      },
+      "tesla_order_status_delivery_window": {
+        "name": "Delivery Window"
+      },
+      "tesla_order_status_delivery_appointment": {
+        "name": "Delivery Appointment"
+      },
+      "tesla_order_status_eta_to_delivery_center": {
+        "name": "ETA to Delivery Center"
+      }
+    },
+    "binary_sensor": {
+      "tesla_order_status_has_changes": {
+        "name": "Has Changes"
+      }
+    }
+  }
+}
+
